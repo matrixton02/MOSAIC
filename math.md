@@ -35,6 +35,9 @@ first of two places (the second being the learned index's own prediction
 error) where exactness is traded for structure.
 
 ## 3. Z-order (Morton) encoding
+![Morton Curve](https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Lebesgue-3d-step2-animated.gif/330px-Lebesgue-3d-step2-animated.gif?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)
+
+<img width="400" height="400" alt="image" src="https://github.com/user-attachments/assets/eebe10b6-9ea4-4825-b47f-04993e1c39da" />
 
 Given quantized integers x, y, z ∈ {0, ..., 2^b − 1}, write each in binary:
 
