@@ -152,9 +152,8 @@ place before the code is.
 
 # Comparison: why not a vector database?
 
-Your instinct that it would be "computationally more hectic" is correct in
-outcome but understates the real issue — a vector database solves a
-**different problem** than the one you have, so the comparison isn't
+A vector database solves a
+**different problem** than the one we have, so the comparison isn't
 really "slower, same answer" — it's "answers a different question, and
 the answer it gives isn't guaranteed complete."
 
@@ -166,14 +165,14 @@ this vector," and the index is explicitly allowed to be **approximate** —
 recall of 90–99% is normal and accepted, because in the typical use case
 (semantic search, recommendation) missing a few near-duplicates is fine.
 
-**What your problem actually is:** an *exact* axis-aligned range query
+**What our problem actually is:** an *exact* axis-aligned range query
 over a small number (2–4) of physically meaningful, independently
 interpretable dimensions. "Give me every flare with energy in [40,60] keV"
 is a completeness-critical query for a physicist — an approximate answer
 that silently drops 5% of matching events is a correctness bug, not an
 acceptable tradeoff.
 
-| Property | Your Z-order + (B+/learned) index | Vector DB (HNSW / IVF) |
+| Property | Our Z-order + (B+/learned) index | Vector DB (HNSW / IVF) |
 |---|---|---|
 | Query semantics | Exact range / point queries | Approximate k-NN similarity |
 | Result guarantee | Exact (with post-filter step) | Probabilistic recall (typically 90–99%) |
@@ -183,8 +182,8 @@ acceptable tradeoff.
 | What "closeness" means | Euclidean/interleaved closeness in raw physical units | Learned/cosine similarity in embedding space |
 | Natural fit for your data | Yes — dimensions are already physically meaningful | No — would require learning an embedding first, discarding the interpretability you actually want |
 
-**The honest bottom line for your proposal:** it's not that a vector DB
-is a slower version of what you're building — it's that applying one here
+**The honest bottom line for our proposal:** it's not that a vector DB
+is a slower version of what we are building — it's that applying one here
 would mean solving the wrong problem well, rather than your problem at
 all. This is worth stating explicitly and confidently in your related-work
 section; it pre-empts a reviewer asking "why not just use FAISS/HNSW,"
@@ -206,7 +205,7 @@ and are what your evaluation section should benchmark against instead:
 | **Two separate 1D indexes + intersection** | Index time and energy separately, bitmap-intersect results | Simple, each index individually well-understood | Double the index memory; intersection cost grows with result set size |
 | **Hilbert curve + 1D index** | Same idea as Z-order but better locality preservation | Stronger locality guarantee than Z-order | More expensive to compute (no simple bit-interleave trick); harder to invert |
 
-Your strongest, most defensible comparison set for the paper is:
+Our strongest, most defensible comparison set for the paper is:
 **full scan (today's realistic baseline) → two-separate-1D-index
 intersection → Z-order + B-tree → Z-order + learned index**, with R-tree
 as an additional reference point since it's the classic textbook answer
