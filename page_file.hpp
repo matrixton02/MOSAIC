@@ -10,10 +10,29 @@ using namespace std;
 // as an evaluation metric later (I/O count per query, buffer pool hit rate, etc).
 
 class PageFile{
+public:
+    ~PageFile(){
+        if(fp_){
+            fclose(fp_);
+        }
+    }
+
+    uint32_t num_pages() const {
+        return num_pages_;
+    }
+
+    uint64_t io_reads() const{
+        return io_reads_;
+    }
+
+    uint64_t io_writes() const{
+        return io_writes_;
+    }
+    
 private:
     string path_;
     FILE* fp_=nullptr;
     uint32_t num_pages_=0;
-    uint64_t io_read_=0;
+    uint64_t io_reads_=0;
     uint64_t io_writes_=0;
 };
